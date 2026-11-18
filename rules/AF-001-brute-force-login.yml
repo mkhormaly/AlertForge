@@ -1,0 +1,23 @@
+id: AF-001
+title: Brute-force login attempts
+description: Repeated failed login requests from one source IP within a short window.
+severity: high
+type: threshold
+mitre:
+  tactic: Credential Access
+  technique: T1110.001
+  name: Password Guessing
+conditions:
+  - field: method
+    operator: equals
+    values: ["POST"]
+  - field: path
+    operator: equals
+    values: ["/rest/user/login"]
+  - field: statusCode
+    operator: equals
+    values: ["401"]
+threshold:
+  count: 5
+  windowSeconds: 60
+  groupBy: sourceIp

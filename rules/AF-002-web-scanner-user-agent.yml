@@ -1,0 +1,13 @@
+id: AF-002
+title: Web scanner user-agent
+description: Request sent by a user-agent string associated with known scanning tools.
+severity: medium
+type: match
+mitre:
+  tactic: Reconnaissance
+  technique: T1595
+  name: Active Scanning
+conditions:
+  - field: userAgent
+    operator: contains
+    values: [sqlmap, nikto, nmap, dirbuster, gobuster, wfuzz, acunetix, nessus, masscan]

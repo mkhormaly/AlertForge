@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: alertforge
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: create-drop
+alertforge:
+  replay:
+    file: data/sample-access.log

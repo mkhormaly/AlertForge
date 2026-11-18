@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AlertForge Dashboard</title>
+  <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+</head>
+<body th:attr="data-poll-seconds=${pollSeconds}">
+  <header>
+    <h1>AlertForge</h1>
+    <p class="sub">
+      <span id="count">0</span> alerts shown &middot; <span id="status">Loading&hellip;</span>
+    </p>
+  </header>
+
+  <section class="controls">
+    <label for="severity-filter">Severity</label>
+    <select id="severity-filter">
+      <option value="">All</option>
+      <option value="CRITICAL">Critical</option>
+      <option value="HIGH">High</option>
+      <option value="MEDIUM">Medium</option>
+      <option value="LOW">Low</option>
+    </select>
+    <span class="hint">Click a row to see the raw log evidence.</span>
+  </section>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Event time</th>
+        <th>Severity</th>
+        <th>Rule</th>
+        <th>MITRE ATT&amp;CK</th>
+        <th>Source IP</th>
+      </tr>
+    </thead>
+    <tbody id="alert-rows"></tbody>
+  </table>
+
+  <script th:src="@{/js/dashboard.js}"></script>
+</body>
+</html>
