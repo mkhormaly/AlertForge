@@ -1,0 +1,12 @@
+# Held-out evaluation:  mvnw spring-boot:run "-Dspring-boot.run.profiles=eval2"
+alertforge:
+  replay:
+    file: false
+  eval:
+    dataset: data/eval/dataset-v2
+spring:
+  main:
+    web-application-type: none
+logging:
+  level:
+    com.alertforge.alertforge.service.AlertService: WARN

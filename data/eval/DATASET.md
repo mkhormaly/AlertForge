@@ -52,3 +52,27 @@ episode must produce at least one alert from `expected_rule`; a normal episode m
 * Slow and near-threshold variants are included on purpose: they show what a given threshold misses or over-alerts.
 * If a rule is changed after seeing these results, report the numbers before and after the change, and say that
   the second number was measured on data the rule was already tuned against.
+
+---
+
+## Dataset v2 (held-out check, added after the first evaluation)
+
+After the first evaluation of v1, rules AF-002, AF-003 and AF-004 were improved using what the missed
+episodes showed. v1 can no longer judge those improvements independently, so a second set was generated:
+
+| | v1 | v2 |
+|---|---|---|
+| Files | `dataset-v1*` | `dataset-v2*` (log, labels, manifest) |
+| Seed | 20261125 | 20261127 |
+| Requests | 5,766 (3,838 normal, 1,928 attack) | 5,769 (3,850 normal, 1,919 attack) |
+| Episodes | 370 (180 attack, 190 normal) | 370 (180 attack, 190 normal) |
+| SQLi / XSS payloads | 30 + 30 from SecLists | 30 + 30 **different** payloads from the same SecLists lists (`sqli-v2.txt`, `xss-v2.txt`) |
+| Look-alike searches | v1 lists | new lists, written independently of v1 and of the rules |
+
+Generated with `python scripts/generate_dataset.py --v2` after `python scripts/select_payloads.py <folder> --v2`.
+The v2 files were frozen before the improved rules were measured against them.
+
+Limits of v2 as an independent test: it uses the same generator structure (the same attack tempos and
+thresholds-related variants), the same scanner tool list, and payloads from the same source lists. It checks
+that the AF-003 / AF-004 changes generalise to unseen payloads and new benign searches; it does not
+independently test AF-002 / AF-006 (same tools) or the threshold sweeps (same variant design).

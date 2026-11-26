@@ -1,9 +1,9 @@
 id: AF-004
 title: Cross-site scripting (XSS) pattern in request
 description: >
-  Request contains a common XSS pattern (script tags, event-handler attributes,
-  javascript: URLs, dangerous tags). Heuristic: it flags a suspicious request, it does
-  not confirm that the payload was executed.
+  Request contains a common XSS pattern (script tags, event-handler attributes, attribute
+  breakouts, javascript: URLs, dangerous tags, JS probe calls, entity-encoded payloads).
+  Heuristic: it flags a suspicious request, it does not confirm that the payload was executed.
 severity: medium
 type: match
 mitre:
@@ -15,7 +15,10 @@ conditions:
     operator: regex
     values:
       - '<\s*script\b'
-      - '\bjavascript\s*:'
+      - '\bjavascript\s*(:|&colon;|&#0*58;?|&#x0*3a;?)'
       - '<\s*\w+[^>]*\bon[a-z]+\s*='
-      - '<\s*(iframe|svg|object|embed)\b'
+      - '<\s*(iframe|svg|object|embed|meta)\b'
       - '\bdocument\s*\.\s*(cookie|domain|write)\b'
+      - '["\x27\s/]on[a-z]{3,}\s*='
+      - '\b(alert|prompt|confirm)\s*\(\s*(\d|["\x27`]|document|window|this)'
+      - '(&#x?[0-9a-f]+;?){4,}'

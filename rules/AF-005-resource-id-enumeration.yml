@@ -1,0 +1,25 @@
+id: AF-005
+title: Suspected IDOR - sequential object-ID enumeration
+description: >
+  Many requests to numeric-ID resource URLs (for example /api/Products/1, /2, /3) from one
+  source IP within a short window. Heuristic: access logs do not show object ownership, so
+  this flags enumeration behavior and cannot confirm broken authorization (IDOR, OWASP API1,
+  CWE-639).
+severity: low
+type: threshold
+mitre:
+  tactic: Initial Access
+  technique: T1190
+  name: Exploit Public-Facing Application
+conditions:
+  - field: method
+    operator: equals
+    values: ["GET"]
+  - field: path
+    operator: regex
+    values:
+      - '^/(api|rest)/[A-Za-z]+/\d+/?$'
+threshold:
+  count: 15
+  windowSeconds: 30
+  groupBy: sourceIp

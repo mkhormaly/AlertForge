@@ -1,17 +1,21 @@
 #!/usr/bin/env python3
 """
-AlertForge evaluation dataset v1 generator.
+AlertForge evaluation dataset generator.
 
-Run ONCE, commit the three output files, and never regenerate: the point of a frozen test set is
-that the rules are measured against data that was fixed before they were tuned.
+    python scripts/generate_dataset.py          -> dataset v1 (frozen; already committed)
+    python scripts/generate_dataset.py --v2     -> dataset v2 (held-out set: new seed, new payloads,
+                                                   new look-alike searches)
 
-Outputs (under data/eval/):
-  dataset-v1.log           web access log, combined format, chronological
-  dataset-v1-labels.csv    one row per log line with the expected outcome
-  dataset-v1-manifest.txt  counts and SHA-256 hashes (the evaluation runner verifies them)
+Run each version ONCE, commit the three output files, and never regenerate: the point of a frozen test
+set is that the rules are measured against data that was fixed before they were tuned.
 
-Inputs: data/eval/payloads/sqli.txt and xss.txt, produced by scripts/select_payloads.py
-from public SecLists payload lists.
+Outputs (under data/eval/), for version vN:
+  dataset-vN.log           web access log, combined format, chronological
+  dataset-vN-labels.csv    one row per log line with the expected outcome
+  dataset-vN-manifest.txt  counts and SHA-256 hashes (the evaluation runner verifies them)
+
+Inputs: data/eval/payloads/sqli.txt and xss.txt (v2: sqli-v2.txt, xss-v2.txt), produced by
+scripts/select_payloads.py from public SecLists payload lists.
 
 Design rules that keep the evaluation honest:
   * every episode (attack, look-alike or background user) has its OWN source IP, so alerts can be
@@ -29,7 +33,8 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import quote
 
-SEED = 20261125
+VERSION = "v2" if "--v2" in sys.argv else "v1"
+SEED = 20261125 if VERSION == "v1" else 20261127
 TZ = timezone(timedelta(hours=3))
 START = datetime(2026, 11, 16, 9, 0, 0, tzinfo=TZ)
 WINDOW_SECONDS = 2 * 3600
@@ -40,7 +45,7 @@ N_PER_SCENARIO = 30
 
 OUT_DIR = Path("data/eval")
 PAYLOAD_DIR = OUT_DIR / "payloads"
-PREFIX = OUT_DIR / "dataset-v1"
+PREFIX = OUT_DIR / ("dataset-" + VERSION)
 
 # Explicit month names: strftime("%b") depends on the operating-system language
 # (a Turkish Windows would write "Kas" instead of "Nov") and would break the parser.
@@ -105,6 +110,34 @@ BENIGN_XSS_LIKE = [
     "ear plugs for sleep", "window cleaner spray", "alert dog collar", "event planner notebook",
     "load bearing shelf", "mouse over-ear pad", "error 404 poster",
 ]
+
+# v2 look-alike searches: written independently of v1 and of the detection rules
+BENIGN_SQL_LIKE_V2 = [
+    "Rock 'n' Roll vinyl records", "select box of chocolates", "drop leaf dining table",
+    "union suit pajamas", "order of the phoenix book", "let's go camping gear", "tom & jerry mug",
+    "1 + 1 = 2 baby onesie", "children's books", "O'Neill wetsuit", "delete key keycap",
+    "update kit for printer", "insert for coffee maker", "create your own t-shirt",
+    "exec chair mesh back", "like new iphone case", "where the wild things are", "sleep sack baby",
+    "salt & pepper shakers", "cats or dogs calendar 2027", "24\" monitor stand", "grill and bbq set",
+    "100% cotton sheets", "Dr. Martens boots", "it's complicated mug", "women's watches",
+    "9\" cast iron pan", "and then there were none book", "truth or dare game",
+    "benchmark running shoes",
+]
+BENIGN_XSS_LIKE_V2 = [
+    "javascript for beginners book", "script supervisor clapperboard", "alert system home security",
+    "iframe embed code book", "svg to png converter", "image frame 8x10", "<3 heart sticker",
+    "5 < 10 maths shirt", "hover board kids", "onsen towel set", "online gift card",
+    "document scanner portable", "cookie cutter set", "embed bolts kit",
+    "object oriented programming book", "on-ear bluetooth headphones", "body wash",
+    "style your hair book", "input cable adapter", "form factor ssd", "html5 poster",
+    "web designer mug", "event ticket holder", "load balancer book", "mouse pad large",
+    "error free t-shirt", "meta quest headset case", "frame by frame animation book",
+    "link of zelda poster", "window blinds cordless",
+]
+if VERSION == "v2":
+    BENIGN_SQL_LIKE = BENIGN_SQL_LIKE_V2
+    BENIGN_XSS_LIKE = BENIGN_XSS_LIKE_V2
+
 BENIGN_TOOLS = [
     ("googlebot", "Googlebot/2.1 (+http://www.google.com/bot.html)"),
     ("bingbot", "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)"),
@@ -133,7 +166,7 @@ def log_time(ts):
 
 
 def read_payloads(name):
-    path = PAYLOAD_DIR / (name + ".txt")
+    path = PAYLOAD_DIR / (name + ("" if VERSION == "v1" else "-v2") + ".txt")
     lines = [l for l in path.read_text(encoding="utf-8").splitlines() if l.strip()]
     if len(lines) < N_PER_SCENARIO:
         sys.exit("%s needs at least %d payloads, found %d" % (path, N_PER_SCENARIO, len(lines)))
@@ -397,7 +430,7 @@ def main():
     attack_requests = sum(v[1] for k, v in by_scenario.items() if not (k == "background" or k.startswith("lookalike")))
     total = len(b.events)
     with open(manifest_path, "w", encoding="utf-8", newline="\n") as m:
-        m.write("dataset=AlertForge evaluation dataset v1\n")
+        m.write("dataset=AlertForge evaluation dataset %s\n" % VERSION)
         m.write("seed=%d\n" % SEED)
         m.write("total_requests=%d\n" % total)
         m.write("normal_requests=%d\n" % (total - attack_requests))

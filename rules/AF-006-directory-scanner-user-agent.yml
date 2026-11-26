@@ -1,0 +1,15 @@
+id: AF-006
+title: Directory / wordlist scanner user-agent
+description: >
+  Request sent with the user-agent of a known directory brute-forcing tool (wordlist
+  scanning). User-agents are easy to change, so this only catches tools left on defaults.
+severity: medium
+type: match
+mitre:
+  tactic: Reconnaissance
+  technique: T1595.003
+  name: Wordlist Scanning
+conditions:
+  - field: userAgent
+    operator: contains
+    values: [gobuster, fuzz faster u fool, ffuf, dirbuster, wfuzz, feroxbuster]

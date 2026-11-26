@@ -2,8 +2,8 @@ id: AF-003
 title: SQL injection pattern in request
 description: >
   Request contains a common SQL injection pattern (UNION SELECT, tautologies, comment
-  terminators, time-based functions). Heuristic: it flags a suspicious request, it does
-  not confirm that the attack succeeded.
+  terminators after a quote, time-based functions). Single AND double quotes are covered.
+  Heuristic: it flags a suspicious request, it does not confirm that the attack succeeded.
 severity: high
 type: match
 mitre:
@@ -15,8 +15,8 @@ conditions:
     operator: regex
     values:
       - '\bunion\b[\s/*+]+(all[\s/*+]+)?select\b'
-      - '\b(or|and)\s+(\x27?\d+\x27?\s*=\s*\x27?\d+|\x27[^\x27]*\x27\s*=\s*\x27[^\x27]*)'
-      - '\x27\s*(--|#|/\*)'
+      - '\b(or|and)\s+(["\x27]?\d+["\x27]?\s*=\s*["\x27]?\d+|\x27[^\x27]*\x27\s*=\s*\x27[^\x27]*|"[^"]*"\s*=\s*"[^"]*)'
+      - '["\x27]\s*(--|#|/\*)'
       - '\b(sleep|benchmark|pg_sleep)\s*\('
       - '\bwaitfor\s+delay\b'
       - '\binformation_schema\b'

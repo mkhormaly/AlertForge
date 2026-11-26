@@ -1,13 +1,15 @@
 id: AF-002
-title: Web scanner user-agent
-description: Request sent by a user-agent string associated with known scanning tools.
+title: Vulnerability scanner user-agent
+description: >
+  Request sent with the user-agent of a known vulnerability scanner. User-agents are easy
+  to change, so a missing match proves nothing; a match is strong evidence of scanning.
 severity: medium
 type: match
 mitre:
   tactic: Reconnaissance
-  technique: T1595
-  name: Active Scanning
+  technique: T1595.002
+  name: Vulnerability Scanning
 conditions:
   - field: userAgent
     operator: contains
-    values: [sqlmap, nikto, nmap, dirbuster, gobuster, wfuzz, acunetix, nessus, masscan]
+    values: [sqlmap, nikto, acunetix, nessus, nmap, nuclei, wpscan, openvas]
