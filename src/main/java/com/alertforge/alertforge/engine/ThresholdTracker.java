@@ -52,4 +52,9 @@ public class ThresholdTracker {
         }
         return false;
     }
+
+        /** Forgets all counters; used between evaluation runs. */
+    public synchronized void reset() {
+        states.clear();
+    }
 }

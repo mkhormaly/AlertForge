@@ -1,0 +1,12 @@
+# Used only for evaluation runs:  mvnw spring-boot:run "-Dspring-boot.run.profiles=eval"
+alertforge:
+  replay:
+    file: false          # switch off the normal startup replay
+  eval:
+    dataset: data/eval/dataset-v1
+spring:
+  main:
+    web-application-type: none   # no web server: the app ends when the evaluation is done
+logging:
+  level:
+    com.alertforge.alertforge.service.AlertService: WARN   # do not print thousands of ALERT lines

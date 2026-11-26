@@ -116,6 +116,6 @@ class RuleLoaderTest {
     void shippedRulesAreValid() throws IOException {
         List<Rule> rules = loader.loadAll(Path.of("rules"));
 
-        assertEquals(4, rules.size());
+        assertEquals(6, rules.size());
     }
 }

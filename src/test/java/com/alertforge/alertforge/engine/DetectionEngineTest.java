@@ -43,7 +43,7 @@ class DetectionEngineTest {
         Alert a = alerts.get(0);
         assertEquals("AF-002", a.getRuleId());
         assertEquals(Severity.MEDIUM, a.getSeverity());
-        assertEquals("T1595", a.getMitreTechnique());
+        assertEquals("T1595.002", a.getMitreTechnique());
         assertEquals("10.0.0.77", a.getSourceIp());
         assertEquals("raw log line", a.getEvidence());
     }
