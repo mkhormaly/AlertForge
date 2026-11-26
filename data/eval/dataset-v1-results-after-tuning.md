@@ -1,57 +1,35 @@
 # AlertForge evaluation results
 
 Dataset: `data/eval/dataset-v1` (hashes verified against the manifest)  
-Run at: 2026-11-26T10:53:32.161022400Z
+Run at: 2026-11-26T11:06:20.439648300Z
 
 ## Baseline (rules and thresholds as shipped)
 
 | Rule | Title | Attack episodes | Detected | Detection rate | False-positive episodes | False-positive rate | Precision |
 |---|---|---|---|---|---|---|---|
 | AF-001 | Brute-force login attempts | 30 | 25 | 83.3% | 0 | 0.0% | 100.0% |
-| AF-002 | Vulnerability scanner user-agent | 30 | 25 | 83.3% | 0 | 0.0% | 100.0% |
-| AF-003 | SQL injection pattern in request | 30 | 20 | 66.7% | 0 | 0.0% | 100.0% |
-| AF-004 | Cross-site scripting (XSS) pattern in request | 30 | 22 | 73.3% | 0 | 0.0% | 100.0% |
+| AF-002 | Vulnerability scanner user-agent | 30 | 30 | 100.0% | 0 | 0.0% | 100.0% |
+| AF-003 | SQL injection pattern in request | 30 | 30 | 100.0% | 0 | 0.0% | 100.0% |
+| AF-004 | Cross-site scripting (XSS) pattern in request | 30 | 29 | 96.7% | 0 | 0.0% | 100.0% |
 | AF-005 | Suspected IDOR - sequential object-ID enumeration | 30 | 25 | 83.3% | 0 | 0.0% | 100.0% |
 | AF-006 | Directory / wordlist scanner user-agent | 30 | 30 | 100.0% | 0 | 0.0% | 100.0% |
-| ALL | Overall | 180 | 147 | 81.7% | 0 | 0.0% | 100.0% |
+| ALL | Overall | 180 | 169 | 93.9% | 0 | 0.0% | 100.0% |
 
-Alerts raised: 750, of which 0 on normal traffic (0.00 per 1,000 normal requests); alerts not mapped to any episode: 0.
+Alerts raised: 807, of which 0 on normal traffic (0.00 per 1,000 normal requests); alerts not mapped to any episode: 0.
 
-### Missed attack episodes (33)
+### Missed attack episodes (11)
 
-- xss-015 [xss/single_request] expected AF-004, rules that fired: none
 - bf-029 [brute_force/slow] expected AF-001, rules that fired: none
 - ie-027 [id_enum/slow] expected AF-005, rules that fired: none
 - bf-027 [brute_force/slow] expected AF-001, rules that fired: none
-- sqli-023 [sqli/single_request] expected AF-003, rules that fired: none
-- sqli-029 [sqli/single_request] expected AF-003, rules that fired: none
-- vs-030 [vuln_scanner/openvas] expected AF-002, rules that fired: none
-- xss-026 [xss/single_request] expected AF-004, rules that fired: none
 - ie-029 [id_enum/slow] expected AF-005, rules that fired: none
 - bf-026 [brute_force/slow] expected AF-001, rules that fired: none
-- sqli-027 [sqli/single_request] expected AF-003, rules that fired: none
-- vs-024 [vuln_scanner/openvas] expected AF-002, rules that fired: none
-- vs-006 [vuln_scanner/openvas] expected AF-002, rules that fired: none
-- sqli-004 [sqli/single_request] expected AF-003, rules that fired: none
-- sqli-008 [sqli/single_request] expected AF-003, rules that fired: none
-- vs-012 [vuln_scanner/openvas] expected AF-002, rules that fired: none
-- sqli-024 [sqli/single_request] expected AF-003, rules that fired: none
-- sqli-016 [sqli/single_request] expected AF-003, rules that fired: none
-- vs-018 [vuln_scanner/openvas] expected AF-002, rules that fired: none
 - xss-022 [xss/single_request] expected AF-004, rules that fired: none
 - ie-028 [id_enum/slow] expected AF-005, rules that fired: none
-- xss-030 [xss/single_request] expected AF-004, rules that fired: none
 - bf-030 [brute_force/slow] expected AF-001, rules that fired: none
-- xss-001 [xss/single_request] expected AF-004, rules that fired: none
-- sqli-018 [sqli/single_request] expected AF-003, rules that fired: none
 - ie-026 [id_enum/slow] expected AF-005, rules that fired: none
-- xss-010 [xss/single_request] expected AF-004, rules that fired: none
 - ie-030 [id_enum/slow] expected AF-005, rules that fired: none
-- xss-016 [xss/single_request] expected AF-004, rules that fired: none
-- xss-014 [xss/single_request] expected AF-004, rules that fired: none
 - bf-028 [brute_force/slow] expected AF-001, rules that fired: none
-- sqli-022 [sqli/single_request] expected AF-003, rules that fired: none
-- sqli-006 [sqli/single_request] expected AF-003, rules that fired: none
 
 ### False-positive episodes (0)
 
